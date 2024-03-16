@@ -1,0 +1,194 @@
+<div class="card">
+  <div class="card-header bg-info"><h6>Employee Registration</h6></div>
+  <div class="card-body">
+    <form [formGroup]="employeeForm" (ngSubmit)="formSubmit()">
+      <div class="row">
+        <div class="form-group col">
+          <label>Department</label>
+          <select class="form-control" name="department" formControlName="department" [class.is-invalid]="f['department'].invalid && f['department'].touched">
+            <option value="">---select---</option>
+            <option value="Accounts">Accounts</option>
+            <option value="Manager">Manager</option>
+            <option value="Administrator">Administrator</option>
+          </select>
+          <div class="alert alert-danger" *ngIf="f['department'].invalid && f['department'].touched">
+            <div *ngIf="f['department'].errors && f['department'].errors['required']">
+              Department is required
+            </div>
+          </div>
+        </div>
+        
+              <div class="form-group col">
+                <label>Employee Name</label>
+                <input type="text" class="form-control" name="empName" formControlName="empName" [class.is-invalid]="f['empName'].invalid && f['empName'].touched">
+              <div class="alert alert-danger" *ngIf="f['empName'].invalid && f['empName'].touched">
+                <div *ngIf="f['empName'].errors && f['empName'].errors['required']">
+                  Name is required
+                </div>
+                <div *ngIf="f['empName'].errors && f['empName'].errors['minlength']">
+                  3 characters minimum
+                </div>
+                <div *ngIf="f['empName'].errors && f['empName'].errors['maxlength']">
+                  20 characters maximum
+                </div>
+                </div>
+              </div>
+
+              <div class="form-group col">
+                <label>Mobile</label>
+                <input type="text" class="form-control" name="mobile" formControlName="mobile" [class.is-invalid]="f['mobile'].invalid && f['mobile'].touched">
+              <div class="alert alert-danger" *ngIf="f['mobile'].invalid && f['mobile'].touched">
+                <div *ngIf="f['mobile'].errors && f['mobile'].errors['required']">
+                  Mobile is required
+                </div>
+                </div>
+              </div>
+
+      </div>
+
+      <div class="row mt-2" >
+        <div class="form-group col">
+          <label>Gender</label>
+          <select class="form-control" name="gender" formControlName="gender" [class.is-invalid]="f['gender'].invalid && f['gender'].touched">
+            <option value="">---select---</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        <div class="alert alert-danger" *ngIf="f['gender'].invalid && f['gender'].touched">
+          <div *ngIf="f['gender'].errors && f['gender'].errors['required']">
+            gender is required
+          </div>
+          </div>
+        </div> 
+
+              <div class="form-group col">
+                <label>Date of join</label>
+                <input type="date" class="form-control" name="joinDate" formControlName="joinDate" [class.is-invalid]="f['joinDate'].invalid && f['joinDate'].touched">
+              <div class="alert alert-danger" *ngIf="f['joinDate'].invalid && f['joinDate'].touched">
+                <div *ngIf="f['joinDate'].errors && f['joinDate'].errors['required']">
+                  joinDate is required
+                </div>
+                </div>
+              </div>
+
+              <div class="form-group col">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" formControlName="email" [class.is-invalid]="f['email'].invalid && f['email'].touched">
+              <div class="alert alert-danger" *ngIf="f['email'].invalid && f['email'].touched">
+                <div *ngIf="f['email'].errors && f['email'].errors['required']">
+                  Email is required
+                </div>
+                  <div *ngIf="f['email'].errors && f['email'].errors['pattern']">
+                    invalid for format
+                  </div>
+                </div>
+              </div>
+
+      </div>
+
+      <div class="row mt-2">
+        <div class="form-group col">
+          <label>Salary</label>
+           <input type="text" class="form-control" name="salary" formControlName="salary" [class.is-invalid]="f['salary'].invalid && f['salary'].touched">
+        <div class="alert alert-danger" *ngIf="f['salary'].invalid && f['salary'].touched">
+          <div *ngIf="f['salary'].errors && f['salary'].errors['required']">
+            Salary is required
+          </div>
+          </div>
+        </div>
+
+<div class="form-group col">
+  <label>Password</label>
+  <input type="password" class="form-control" name="password" formControlName="password"
+         [class.is-invalid]="f['password'].invalid && f['password'].touched"
+         (input)="checkPasswords()">
+  <div class="alert alert-danger" *ngIf="f['password'].invalid && f['password'].touched">
+    <div *ngIf="f['password'].errors && f['password'].errors['required']">
+      Password is required
+    </div>
+    <div *ngIf="f['password'].errors && f['password'].errors['minlength']">
+      Password must be at least 6 characters
+    </div>
+    <div *ngIf="f['password'].errors && f['password'].errors['maxlength']">
+      Password cannot be more than 20 characters
+    </div>
+  </div>
+</div>
+
+<div class="form-group col">
+  <label>Confirm Password</label>
+  <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword"
+         [class.is-invalid]="f['confirmPassword'].invalid && f['confirmPassword'].touched"
+         (input)="checkPasswords()">
+  <div class="alert alert-danger" *ngIf="f['confirmPassword'].invalid && f['confirmPassword'].touched">
+    <div *ngIf="f['confirmPassword'].errors && f['confirmPassword'].errors['required']">
+      Confirm Password is required
+    </div>
+    <div *ngIf="!passwordsMatch">
+      Passwords do not match
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="row mt-2">
+        <div class="col-12">
+        <div class="form-group form-check">
+         <input type="checkbox" class="form-check-input" name="empStatus" formControlName="empStatus" [class.is-invalid]="f['empStatus'].invalid && f['empStatus'].touched">
+         <label>Active</label>
+        <div class="alert alert-danger" *ngIf="f['empStatus'].invalid && f['empStatus'].touched">
+          <div *ngIf="f['empStatus'].errors && f['empStatus'].errors['required']">
+            Status is required
+          </div>
+          </div>
+        </div>
+       </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="form-group text-center">
+          <button type="submit" [class.disabled]="employeeForm.invalid" class="btn btn-success me-3">{{buttonText}}</button>
+          <button type="reset" class="btn btn-warning me-3" (click)="resetBtn()">Reset</button>
+          <button type="button" class="btn btn-danger" (click)="cancelBtn()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header bg-info"><h6>Employee List</h6></div>
+  <div class="card-body">
+    <div class="row">
+      <table class="table table-bordered table-responsive table-striped">
+        <thead>
+          <tr>
+            <th>Department</th>
+            <th>Empolyee Name</th>
+            <th>Mobile</th>
+            <th>Gender</th>
+            <th>Joining Date</th>
+            <th>Email</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of employees">
+            <td>{{ emp.department }}</td>
+            <td>{{ emp.empName }}</td>
+            <td>{{ emp.mobile }}</td>
+            <td>{{ emp.gender }}</td>
+            <td>{{ emp.joinDate }}</td>
+            <td>{{ emp.email }}</td>
+            <td class="text-center">
+            <i class="fa fa-edit text-primary me-3" (click)="Edit(emp)"></i>
+            <i class="fa fa-info text-info me-3"></i>
+            <i class="fa fa-trash-o text-danger me-3" (click)="Delete(emp.id)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
